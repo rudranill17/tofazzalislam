@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Visual Editor — Tofazzal Islam Portfolio</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grapesjs/dist/css/grapes.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage/dist/grapesjs-preset-webpage.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  html, body { margin: 0; height: 100%; font-family: -apple-system, sans-serif; }
+  #topbar {
+    height: 48px; background: #1E2A1F; color: #EDEEE1; display: flex;
+    align-items: center; justify-content: space-between; padding: 0 16px;
+    font-size: 14px; box-sizing: border-box;
+  }
+  #topbar b { color: #B8842A; }
+  #downloadBtn {
+    background: #B8842A; color: #1E2A1F; border: none; padding: 8px 16px;
+    border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 13px;
+  }
+  #downloadBtn:hover { background: #cf9a3d; }
+  #gjs { height: calc(100% - 48px); }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div><b>Visual Editor</b> — drag blocks from the right panel, click any text to edit it, click images to replace them.</div>
+  <button id="downloadBtn">⬇ Download updated index.html</button>
+</div>
+<div id="gjs"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/grapesjs/dist/grapes.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage/dist/grapesjs-preset-webpage.min.js"></script>
+<script>
+const FONT_LINK = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
+
+/* ---- Starting content: pulled straight from index.html ---- */
+const INITIAL_HTML = `
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="#top" class="brand">Tofazzal Islam</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="sequence-rule"><span class="a"></span><span class="t"></span><span class="c"></span><span class="g"></span><span class="c"></span><span class="a"></span><span class="g"></span><span class="t"></span><span class="g"></span><span class="c"></span><span class="a"></span><span class="t"></span></div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <img class="hero-photo" src="https://ibge.gau.edu.bd/tofazzal/wp-content/uploads/sites/2/2019/03/Tofazzal.jpg" alt="Portrait of Dr. Md. Tofazzal Islam">
+      <div>
+        <p class="eyebrow">Institute of Biotechnology &amp; Genetic Engineering · BSMRAU</p>
+        <h1>Dr. Md. Tofazzal Islam</h1>
+        <p class="postnom">FBAS · FTWAS · FAPS — Fellow, Fulbright / Commonwealth / JSPS / Alexander von Humboldt</p>
+        <p class="role">Professor and Founding Director, Institute of Biotechnology and Genetic Engineering (IBGE), Bangabandhu Sheikh Mujibur Rahman Agricultural University</p>
+        <p class="fellowships">Genomics &amp; genome editing · molecular plant–pathogen interactions · agricultural biotechnology</p>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-tag"><span class="val">350+</span><span class="lbl">Research articles</span></div>
+      <div class="stat-tag"><span class="val">10,500+</span><span class="lbl">Citations</span></div>
+      <div class="stat-tag"><span class="val">54</span><span class="lbl">h-index</span></div>
+      <div class="stat-tag"><span class="val">$10M+</span><span class="lbl">Grants secured</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="sequence-rule"><span class="g"></span><span class="c"></span><span class="a"></span><span class="t"></span><span class="t"></span><span class="g"></span><span class="c"></span><span class="a"></span><span class="a"></span><span class="t"></span><span class="c"></span><span class="g"></span></div>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>Specialization &amp; Research Focus</h2></div>
+    <p class="lede">Genomics and Genome Editing; Molecular Plant–Pathogen Interactions; Biotechnology; and Molecular Diagnosis of Fungal Phytopathogens.</p>
+    <ul class="foci-list">
+      <li>Mitigation of wheat blast using frontier technologies including CRISPR-Cas</li>
+      <li>Point-of-care detection of agriculturally important diseases</li>
+      <li>Genomics and metagenomics analyses of terrestrial and marine organisms for biotechnology and bioprospecting</li>
+    </ul>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>About</h2></div>
+    <div class="about-body">
+      <p>A distinguished Fulbright Scholar, Professor Tofazzal Islam, born on December 20, 1966, is a distinguished academic figure serving as a Professor and Founding Director of the Institute of Biotechnology and Genetic Engineering (IBGE) at Bangabandhu Sheikh Mujibur Rahman Agricultural University in Bangladesh. He earned his BScAg (Hons) and MSc(Ag) degrees, both with first-class honors, from Bangladesh Agricultural University in 1988 and 1989, respectively. Tofazzal furthered his education by completing his MS and PhD degrees in Applied Biosciences at Hokkaido University in 1999 and 2002. He has held prestigious postdoctoral positions at esteemed institutions such as Hokkaido University, University of Goettingen, University of Nottingham, and West Virginia University, under various fellowship programs including JSPS, Alexander von Humboldt, Commonwealth, and Fulbright.</p>
+      <p>Throughout his career, Dr. Tofazzal has garnered international recognition for his groundbreaking research and expertise in the application of frontier sciences — tissue culture, molecular biology, genomics, and genome editing — to address the impacts of climate change on agriculture through the development of climate-smart agrobiotechnology. He is a pioneer in establishing the IBGE with state-of-the-art laboratories for cutting-edge research, securing over 10 million dollars in internationally competitive grants.</p>
+      <p>Collaborating with researchers at the Global Institute for Food Security of Canada, Professor Tofazzal's team recently achieved a milestone by decoding the entire genome of a year-round fruiting jackfruit. Throughout his career, Prof. Islam has discovered over 50 novel bioactive secondary metabolites from marine and terrestrial organisms.</p>
+      <p>In addition to his research, Prof. Tofazzal holds esteemed editorial roles in leading scientific journals and has authored more than 350 research articles in top-tier journals. Dr. Islam is an elected Fellow of the Bangladesh Academy of Sciences, American Phytopathological Society (USA), Bangladesh Academy of Agriculture, and The World Academy of Sciences (TWAS, Italy).</p>
+      <p>Prof. Tofazzal's research endeavors have been generously funded by various international organizations, including the World Bank, Bill &amp; Melinda Gates Foundation, and USDA-FAS, among others.</p>
+    </div>
+    <div class="resume-links">
+      <a class="btn" href="https://ibge.gau.edu.bd/tofazzal/wp-content/uploads/sites/2/2024/09/CVTofazzal-Islam2024.pdf" target="_blank">Download CV (English)</a>
+      <a class="btn" href="https://ibge.gau.edu.bd/tofazzal/wp-content/uploads/sites/2/2024/10/%E0%A6%AB%E0%A7%81%E0%A6%B2%E0%A6%AC%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%87%E0%A6%9F-%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A6%B2%E0%A6%BE%E0%A6%B0-%E0%A6%A4%E0%A7%8B%E0%A6%AB%E0%A6%BE%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%B2-%E0%A6%87%E0%A6%B8%E0%A6%B2%E0%A6%BE%E0%A6%AE.pdf" target="_blank">Download CV (বাংলা)</a>
+    </div>
+  </div>
+</section>
+
+<div class="sequence-rule"><span class="t"></span><span class="a"></span><span class="g"></span><span class="c"></span><span class="a"></span><span class="c"></span><span class="t"></span><span class="g"></span><span class="g"></span><span class="t"></span><span class="a"></span><span class="c"></span></div>
+
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Academic Journey</h2></div>
+    <div class="two-col">
+      <div>
+        <h3 style="font-family:var(--font-display); font-size:1.05rem; margin-bottom:16px;">Education</h3>
+        <div class="timeline">
+          <div class="timeline-item"><span class="year">2002</span><p class="title">PhD in Applied Bioscience</p><p class="sub">Hokkaido University, Japan — Grade A, Excellent</p></div>
+          <div class="timeline-item"><span class="year">1999</span><p class="title">MS in Ecological Chemistry</p><p class="sub">Hokkaido University, Japan — Grade A, Excellent</p></div>
+          <div class="timeline-item"><span class="year">1995</span><p class="title">MSc (Ag) in Agricultural Chemistry</p><p class="sub">Bangladesh Agricultural University — First Class First</p></div>
+          <div class="timeline-item"><span class="year">1991</span><p class="title">BSc Agriculture</p><p class="sub">Bangladesh Agricultural University — First Class First</p></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display); font-size:1.05rem; margin-bottom:16px;">Positions Held</h3>
+        <div class="timeline">
+          <div class="timeline-item"><span class="year">2017 – Present</span><p class="title">Professor &amp; Founding Director, IBGE</p><p class="sub">BSMRAU, Bangladesh</p></div>
+          <div class="timeline-item"><span class="year">2017 – 2018</span><p class="title">Fulbright Visiting Scholar</p><p class="sub">West Virginia University, USA</p></div>
+          <div class="timeline-item"><span class="year">2013 – 2017</span><p class="title">Adjunct Professor</p><p class="sub">East West University, Bangladesh</p></div>
+          <div class="timeline-item"><span class="year">2010 – 2017</span><p class="title">Professor &amp; Head, Dept. of Biotechnology</p><p class="sub">BSMRAU, Bangladesh</p></div>
+          <div class="timeline-item"><span class="year">2007 – 2009</span><p class="title">Alexander von Humboldt Fellow</p><p class="sub">Georg-August Universität Göttingen, Germany</p></div>
+          <div class="timeline-item"><span class="year">2003 – 2005</span><p class="title">JSPS Postdoctoral Research Fellow</p><p class="sub">Hokkaido University, Japan</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sequence-rule"><span class="c"></span><span class="g"></span><span class="t"></span><span class="a"></span><span class="g"></span><span class="a"></span><span class="c"></span><span class="t"></span><span class="t"></span><span class="c"></span><span class="g"></span><span class="a"></span></div>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>Contact</h2></div>
+    <div class="contact-card">
+      <div class="contact-row"><span class="k">Address</span><span class="v">IBGE, Bangabandhu Sheikh Mujibur Rahman Agricultural University, Salna, Gazipur-1706, Bangladesh</span></div>
+      <div class="contact-row"><span class="k">Phone</span><span class="v">+88-02-9205310-14 Ext. 2252</span></div>
+      <div class="contact-row"><span class="k">Mobile</span><span class="v">+88-01714-001414</span></div>
+      <div class="contact-row"><span class="k">Email</span><span class="v"><a href="mailto:tofazzalislam@gau.edu.bd">tofazzalislam@gau.edu.bd</a> · <a href="mailto:tofazzalislam@yahoo.com">tofazzalislam@yahoo.com</a></span></div>
+      <div class="contact-row"><span class="k">Website</span><span class="v"><a href="https://ibge.gau.edu.bd" target="_blank">ibge.gau.edu.bd</a></span></div>
+      <div class="contact-row"><span class="k">ResearchGate</span><span class="v"><a href="https://www.researchgate.net/profile/Tofazzal_Islam" target="_blank">researchgate.net/profile/Tofazzal_Islam</a></span></div>
+      <div class="contact-row"><span class="k">ORCID</span><span class="v"><a href="http://orcid.org/0000-0002-7613-0261" target="_blank">0000-0002-7613-0261</a></span></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">&copy; 2026 Dr. Md. Tofazzal Islam · Institute of Biotechnology and Genetic Engineering, BSMRAU</div></footer>
+`;
+
+/* ---- Site styling (same design as the published site) ---- */
+const INITIAL_CSS = `
+:root{--ink:#1E2A1F;--paper:#EDEEE1;--paper-raised:#F6F6EE;--moss:#3F5C3B;--moss-deep:#2C4029;--wheat:#B8842A;--rule:#C7CBB8;--muted:#5B6558;--font-display:"Fraunces",Georgia,serif;--font-body:"Inter",-apple-system,sans-serif;--font-mono:"IBM Plex Mono",monospace;--max-w:920px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65}
+img{max-width:100%;display:block}
+a{color:var(--moss-deep);text-decoration-color:var(--rule);text-underline-offset:3px}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(237,238,225,.92);border-bottom:1px solid var(--rule)}
+.site-nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 28px}
+.site-nav .brand{font-family:var(--font-display);font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none}
+.site-nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0;flex-wrap:wrap}
+.site-nav a{font-size:.86rem;font-weight:500;color:var(--muted);text-decoration:none;text-transform:uppercase}
+.sequence-rule{display:flex;height:6px;width:100%}
+.sequence-rule span{flex:1 1 0}
+.sequence-rule .a{background:var(--moss)}.sequence-rule .t{background:var(--wheat)}.sequence-rule .c{background:var(--rule)}.sequence-rule .g{background:var(--moss-deep)}
+.hero{padding:64px 0 48px}
+.hero-grid{display:grid;grid-template-columns:168px 1fr;gap:36px;align-items:start}
+.hero-photo{width:168px;height:168px;border-radius:4px;object-fit:cover;border:1px solid var(--rule);box-shadow:6px 6px 0 var(--wheat)}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--wheat);margin:0 0 10px}
+.hero h1{font-family:var(--font-display);font-weight:600;font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.06;margin:0 0 6px;color:var(--ink)}
+.hero .postnom{font-family:var(--font-mono);font-size:.85rem;color:var(--muted);margin:0 0 18px}
+.hero .role{font-size:1.05rem;max-width:56ch;margin:0 0 6px}
+.hero .fellowships{font-size:.92rem;color:var(--muted);max-width:56ch;margin:0}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.stat-tag{position:relative;background:var(--paper-raised);border:1px solid var(--rule);border-radius:3px;padding:14px 12px 12px}
+.stat-tag .val{font-family:var(--font-mono);font-size:1.4rem;font-weight:600;color:var(--moss-deep);display:block}
+.stat-tag .lbl{font-size:.74rem;color:var(--muted);text-transform:uppercase}
+section{padding:52px 0}
+.section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
+.section-num{font-family:var(--font-mono);font-size:.8rem;color:var(--wheat)}
+h2{font-family:var(--font-display);font-weight:600;font-size:1.6rem;margin:0;color:var(--ink)}
+.lede{font-size:1.05rem;max-width:68ch}
+.foci-list{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.foci-list li{position:relative;padding-left:26px;max-width:68ch}
+.foci-list li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:3px;background:var(--moss)}
+.about-body p{max-width:70ch;margin:0 0 18px}
+.resume-links{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.8rem;text-transform:uppercase;padding:10px 16px;border:1px solid var(--moss-deep);border-radius:3px;color:var(--moss-deep);text-decoration:none}
+.timeline{border-left:2px solid var(--rule);margin-left:4px;padding-left:24px;display:grid;gap:22px}
+.timeline-item{position:relative}
+.timeline-item .year{font-family:var(--font-mono);font-size:.78rem;color:var(--wheat);display:block;margin-bottom:3px}
+.timeline-item .title{font-weight:600;margin:0 0 2px}
+.timeline-item .sub{font-size:.92rem;color:var(--muted);margin:0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.contact-card{background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;padding:28px 30px;display:grid;gap:10px}
+.contact-row{display:flex;gap:10px;font-size:.95rem}
+.contact-row .k{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;color:var(--muted);min-width:88px}
+footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.82rem}
+@media (max-width:720px){.hero-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}}
+`;
+
+const editor = grapesjs.init({
+  container: '#gjs',
+  height: '100%',
+  fromElement: false,
+  storageManager: false,
+  plugins: ['gjs-preset-webpage'],
+  pluginsOpts: {
+    'gjs-preset-webpage': {
+      blocksBasicOpts: { blocks: ['text','image','video','link','map','1-column','2-columns','3-columns','2-columns-1'], flexGrid: true },
+      exportOpts: false,
+      aviaryOpts: false,
+    }
+  },
+  canvas: {
+    styles: [FONT_LINK]
+  }
+});
+
+editor.setComponents(INITIAL_HTML);
+editor.setStyle(INITIAL_CSS);
+
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  const html = editor.getHtml();
+  const css = editor.getCss();
+  const full = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Md. Tofazzal Islam — Professor & Founding Director, IBGE</title>
+<link rel="stylesheet" href="${FONT_LINK}">
+<style>${css}</style>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+  const blob = new Blob([full], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
